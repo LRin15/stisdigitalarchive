@@ -34,6 +34,12 @@ public class ArchiveController {
         return ResponseEntity.ok(archive);
     }
 
+    @PutMapping("/{id}")
+    public ResponseEntity<ArchiveDto> updateArchive(@PathVariable Long id, @RequestBody @Valid ArchiveDto archiveDto) {
+        ArchiveDto updatedArchive = archiveService.updateArchive(id, archiveDto);
+        return ResponseEntity.ok(updatedArchive);
+    }
+
     @GetMapping("/search")
     public ResponseEntity<List<ArchiveDto>> searchArchives(@RequestParam String keyword) {
         List<ArchiveDto> archives = archiveService.searchArchivesByTitle(keyword);

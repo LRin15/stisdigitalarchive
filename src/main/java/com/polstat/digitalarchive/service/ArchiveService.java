@@ -9,4 +9,5 @@ public interface ArchiveService {
     ArchiveDto getArchiveById(Long id);
     List<ArchiveDto> searchArchivesByTitle(String title);
     void deleteArchive(Long id);
+    ArchiveDto updateArchive(Long id, ArchiveDto archiveDto);
 }

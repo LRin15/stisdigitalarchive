@@ -16,6 +16,12 @@ public class UserController {
     @Autowired
     private UserService userService;
 
+    @GetMapping("/current")
+    public ResponseEntity<UserDto> getCurrentUser(@RequestParam String email) {
+        UserDto user = userService.getUserByEmail(email);
+        return ResponseEntity.ok(user);
+    }
+
     @PutMapping("/{userId}/profile")
     public ResponseEntity<UserDto> updateProfile(@PathVariable Long userId, @RequestBody @Valid UserDto userDto) {
         UserDto updatedUser = userService.updateUserProfile(userId, userDto);

@@ -44,6 +44,23 @@ public class ArchiveServiceImpl implements ArchiveService {
     }
 
     @Override
+    public ArchiveDto updateArchive(Long id, ArchiveDto archiveDto) {
+        // First check if the archive exists
+        Archive existingArchive = archiveRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Archive not found with id: " + id));
+
+        // Update the existing archive with new values
+        Archive archiveToUpdate = ArchiveMapper.mapToArchive(archiveDto);
+        archiveToUpdate.setId(id);  // Ensure we keep the same ID
+
+        // Save the updated archive
+        Archive updatedArchive = archiveRepository.save(archiveToUpdate);
+
+        // Convert back to DTO and return
+        return ArchiveMapper.mapToArchiveDto(updatedArchive);
+    }
+
+    @Override
     public void deleteArchive(Long id) {
         archiveRepository.deleteById(id);
     }
